@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Task Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>Task Manager</h1>
+    </header>
+    <main>
+        <form th:action="@{/btn}" method="post">
+            <div>
+                <label for="name">Task Name:</label>
+                <input type="text" id="name" name="ga" required>
+            </div>
+            <div>
+                <label for="status">Status:</label>
+                <input type="text" id="status" name="status" required>
+            </div>
+
+            <button type="submit" id="action" name="action" value="addBtn">Add Task</button>
+            <button type="submit" id="btn2" name="action" value="addBtn">Add Task</button>
+            <button type="submit" id="btn3" name="action" value="addBtn">Add Task</button>
+        </form>
+        <div class="task-table">
+            <table>
+                <thead>
+                <tr>
+                    <th>Task ID</th>
+                    <th>Task Name</th>
+                    <th>Status</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task, iterStat : ${tasks}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${task.name}">Example Task</td>
+                    <td th:text="${task.status}">Pending</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <form th:action="@{/removeTask}" method="post">
+
+            <div>
+                <label for="status">ID:</label>
+                <input type="hidden" id="uuid" name="uuid" value="">
+            </div>
+            <button type="submit" name="action" value="editBtn">Remove Task</button>
+        </form>
+    </main>
+</div>
+</body>
+</html>
+
