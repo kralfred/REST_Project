@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Tasks List</title>
+</head>
+<body>
+
+<form th:action="@{/deleteUncheckedTasks}" method="post">
+  <table>
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="task : ${tasks}">
+      <td th:text="${task.id}"></td>
+      <td th:text="${task.name}"></td>
+      <td th:text="${task.status}"></td>
+      <td><input type="checkbox" th:field="*{tasks[__${iterStat.index}__].checked}"/></td>
+    </tr>
+    </tbody>
+  </table>
+  <button type="submit">Delete Unchecked Tasks</button>
+</form>
+
+</body>
+</html>
+
+
