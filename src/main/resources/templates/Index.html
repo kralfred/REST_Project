@@ -26,7 +26,7 @@
             <button type="submit" id="btn3" name="third" value="addBtn">Modify Task</button>
         </form>
 
-        <form th:action="removeTasks" method="post">
+        <form th:action="@{/removeTasks}" th:object="${tasks}" method="post">
         <div class="task-table">
             <table>
                 <thead>
@@ -41,15 +41,17 @@
                     <td th:text="${iterStat.count}"></td>
                     <td th:text="${task.name}"></td>
                     <td th:text="${task.status}"></td>
-                    <td><input type="checkbox" th:checked="${checked}"/></td>
+                    <td><input type="checkbox" name="checkBoxes" th:value="${task.id}"/></td>
 
 
                 </tr>
                 </tbody>
-                <button type="submit" >Remove task</button>
+                <button type="submit" >Remove tasks</button>
             </table>
         </div>
         </form>
+
+
 
     </main>
 </div>

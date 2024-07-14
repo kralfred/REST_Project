@@ -2,33 +2,32 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Tasks List</title>
+  <title>Secondary Page</title>
 </head>
 <body>
+<h1>Secondary Page</h1>
+<p>This is the content of the secondary page.</p>
 
-<form th:action="@{/deleteUncheckedTasks}" method="post">
-  <table>
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Status</th>
-      <th>Delete</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="task : ${tasks}">
-      <td th:text="${task.id}"></td>
-      <td th:text="${task.name}"></td>
-      <td th:text="${task.status}"></td>
-      <td><input type="checkbox" th:field="*{tasks[__${iterStat.index}__].checked}"/></td>
-    </tr>
-    </tbody>
-  </table>
-  <button type="submit">Delete Unchecked Tasks</button>
+<form method="post" action="@{/post}">
+  <label>
+    <input type="checkbox" th:checked="${flag}"/> Flag activated
+  </label>
+  <label>
+    <input type="checkbox" /> Customer activated
+  </label>
+  <label>
+    <input type="checkbox" /> Flag deactivated
+
+  </label>
+  <button type="submit">submit</button>
 </form>
 
+
+
+<a href="/">Go to Main Page</a>
 </body>
 </html>
+
+
 
 

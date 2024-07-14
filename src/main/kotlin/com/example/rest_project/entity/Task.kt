@@ -6,5 +6,4 @@ data class Task(
     val id: UUID = UUID.randomUUID(),
     val name: String,
     val status: String,
-    var checked: Boolean = false
 )

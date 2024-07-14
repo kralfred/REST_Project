@@ -6,17 +6,7 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
-import org.springframework.web.bind.annotation.GetMapping
 
-@Controller
-class SecondaryPageController {
-
-    @GetMapping("/secondary")
-    fun secondaryPage(model: Model): String {
-        model.addAttribute("message", "This is the secondary page!")
-        return "secondary" // Name of the Thymeleaf template
-    }
-}
 
 
 
@@ -32,12 +22,6 @@ class TaskController {
         return "index"
     }
 
-    @GetMapping("/btn/{name}/")
-    fun handleButton(@PathVariable name: String): String{
-
-
-        return "Button pressed: $name"
-    }
 
 
 
@@ -48,21 +32,19 @@ class TaskController {
         return "redirect:/"
     }
 
-
     @PostMapping("/removeTasks")
-    fun removeTasks(@ModelAttribute("tasks") checkedTasks: List<Task>): String {
-        tasks.removeIf { task -> checkedTasks.any { it.id == task.id && !it.checked } }
-        return "redirect:/"
-    }
+    fun removeTasks(@RequestParam checkBoxes: List<UUID>?): String {
 
-    @PostMapping("/remTask")
-    fun reemoveTask(@RequestParam uuid: String): String {
-        val uuidParsed = UUID.fromString(uuid)
-        val wasRemoved = tasks.removeIf { it.id == uuidParsed }
+        if (checkBoxes != null) {
 
+            tasks.removeIf { task -> checkBoxes.contains(task.id) }
+
+        }
 
         return "redirect:/"
     }
+
+
 
   /*  @PostMapping("/editTask")
     fun editTask(@RequestParam uuid: String, @RequestParam status: String) : String {
