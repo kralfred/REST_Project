@@ -23,17 +23,16 @@
             </div>
 
             <button type="submit" id="action" name="action" value="addBtn">Add Task</button>
-            <button type="submit" id="btn3" name="third" value="addBtn">Modify Task</button>
         </form>
 
-        <form th:action="@{/removeTasks}" th:object="${tasks}" method="post">
-        <div class="task-table">
+        <form th:action="@{/handleTasks}" th:object="${tasks}" method="post">
             <table>
                 <thead>
                 <tr>
                     <th>Task ID</th>
                     <th>Task Name</th>
                     <th>Status</th>
+                    <th>Finished</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -41,14 +40,36 @@
                     <td th:text="${iterStat.count}"></td>
                     <td th:text="${task.name}"></td>
                     <td th:text="${task.status}"></td>
+                    <td th:text="${task.finished}"></td>
                     <td><input type="checkbox" name="checkBoxes" th:value="${task.id}"/></td>
+                    <td><button type="submit" >Info</button></td>
 
 
                 </tr>
                 </tbody>
-                <button type="submit" >Remove tasks</button>
+                <button type="submit" name="taskBtn" value="remove">Remove tasks</button>
+                <button type="submit" name="taskBtn" value="mark">Mark as done</button>
             </table>
-        </div>
+        </form>
+
+        <form th:action="@{/editTask}"  method="post" id="infoTable">
+        <table style="display: none;">
+            <thead>
+            <tr>
+                <th>Task ID</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="text, iterStat : ${comments}">
+                <td th:text="${iterStat.count}"></td>
+                <td th:text="${comment.text}"></td>
+
+
+
+            </tr>
+            </tbody>
+        </table>
         </form>
 
 
