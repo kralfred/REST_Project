@@ -1,19 +1,20 @@
 package com.example.rest_project.controller
 
 import com.example.rest_project.entity.Task
-import com.example.rest_project.entity.Comment
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.ResponseBody
 import java.util.*
-import javax.swing.Action
 
 
 @Controller
-class TaskController {
+class TaskController{
 
     private val tasks = mutableListOf<Task>()
-    private val comments = mutableListOf<Comment>()
+
 
     @GetMapping("/")
     fun showTasks(model: Model): String {
@@ -25,41 +26,38 @@ class TaskController {
     @PostMapping("/addTask")
     fun addTask(name: String,status: String): String {
         tasks.add(Task(name=name, status=status))
-        return "redirect:/"
-    }
-
-    @PostMapping("/handleTasks")
-    fun handleTasks(@RequestParam checkBoxes: List<UUID>?,@RequestParam taskBtn: String): String {
-
-
-
-        when(taskBtn){
-            "remove" -> if (checkBoxes != null) {
-                tasks.removeIf { task -> checkBoxes.contains(task.id) }
-            }
-            "mark" -> if (checkBoxes != null) {
-                println("marked")
-                tasks.forEach{ task -> task.finished = checkBoxes?.contains(task.id) == true}
-        }
-        }
-
-
-
-
+        println("Added")
         return "redirect:/"
     }
 
 
-
-    @PostMapping("/editTask")
-    fun editTask(@RequestParam uuid: String, @RequestParam status: String) : String {
-
-     return "redirect:/"
-    }
-    @PostMapping("/markAsDone")
-    fun markAsDone(@RequestParam checkBoxes: List<UUID>?){
-
+    @PostMapping("/updateTask")
+    @ResponseBody
+    fun updateTask(@RequestParam taskId: UUID, @RequestParam completed: Boolean): String {
+        val taskToUpdate = tasks.find { it.id == taskId }
+        taskToUpdate?.completed = completed
+        println("Task updated successfully")
+        return "redirect:/"
     }
 
+    @PostMapping("/removeTask")
+    fun removeTask(@RequestParam("removeBtn") removeBtn: UUID): String{
+        tasks.removeIf{ task -> task.id == removeBtn }
+        println("Task Removed")
+        return "redirect:/"
+        }
+
+}
+@Controller
+class RedirectController {
+
+    private val info = mutableListOf<Task>()
+    @PostMapping("/redirect")
+    fun redirectToAnotherPage(): String {
+
+
+
+        return "redirect:/secondary"
+    }
 }
 

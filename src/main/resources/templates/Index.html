@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="">
 <head>
     <meta charset="UTF-8">
     <title>Task Manager</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" />
 </head>
 <body>
 <div class="container">
@@ -25,14 +29,14 @@
             <button type="submit" id="action" name="action" value="addBtn">Add Task</button>
         </form>
 
-        <form th:action="@{/handleTasks}" th:object="${tasks}" method="post">
-            <table>
+        <div class="container">
+            <table class="table">
                 <thead>
                 <tr>
                     <th>Task ID</th>
                     <th>Task Name</th>
                     <th>Status</th>
-                    <th>Finished</th>
+                    <th>Completed</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -40,17 +44,30 @@
                     <td th:text="${iterStat.count}"></td>
                     <td th:text="${task.name}"></td>
                     <td th:text="${task.status}"></td>
-                    <td th:text="${task.finished}"></td>
-                    <td><input type="checkbox" name="checkBoxes" th:value="${task.id}"/></td>
-                    <td><button type="submit" >Info</button></td>
+                    <td>
+                        <input type="checkbox"
+                               th:id="${'checkbox-' + task.id}"
+                               th:checked="${task.completed}"
+                               th:attr="data-task-id=${task.id}"
+                               onclick="toggleCompleted(this)">
+                    </td>
 
+                    <form th:action="@{/redirect}" method="post">
+                        <td><button type="submit" >Info</button></td>
+                    </form>
+
+                    <td>
+                    <form th:action="@{/removeTask}" method="post">
+                        <input type="hidden" name="removeBtn" th:value="${task.id}" />
+                        <button type="submit">Remove</button>
+                    </form>
+                    </td>
 
                 </tr>
                 </tbody>
-                <button type="submit" name="taskBtn" value="remove">Remove tasks</button>
                 <button type="submit" name="taskBtn" value="mark">Mark as done</button>
             </table>
-        </form>
+        </div>
 
         <form th:action="@{/editTask}"  method="post" id="infoTable">
         <table style="display: none;">
@@ -76,6 +93,28 @@
 
     </main>
 </div>
+<script type="text/javascript">
+    function toggleCompleted(checkbox) {
+        const taskId = checkbox.getAttribute('data-task-id');
+        const completed = checkbox.checked;
+
+        // Send AJAX request to updateTask endpoint
+        $.ajax({
+            type: 'POST',
+            url: '/updateTask',
+            data: {
+                taskId: taskId,
+                completed: completed
+            },
+            success: function(response) {
+                console.log(response); // Optional: Handle success response
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error); // Optional: Handle error
+            }
+        });
+    }
+</script>
 </body>
 </html>
 
