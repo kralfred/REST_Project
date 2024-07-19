@@ -31,6 +31,10 @@ class TaskController{
     }
 
 
+
+    // Docker desktop
+    // mybattins
+
     @PostMapping("/updateTask")
     @ResponseBody
     fun updateTask(@RequestParam taskId: UUID, @RequestParam completed: Boolean): String {
@@ -55,9 +59,8 @@ class RedirectController {
     @PostMapping("/redirect")
     fun redirectToAnotherPage(): String {
 
-
-
         return "redirect:/secondary"
     }
+
 }
 
