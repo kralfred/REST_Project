@@ -17,10 +17,6 @@
                 <label for="name">Task Name:</label>
                 <input type="text" id="name" name="name" required>
             </div>
-            <div>
-                <label for="status">Status:</label>
-                <input type="text" id="status" name="status" required>
-            </div>
 
             <button type="submit" id="action" name="action" value="addBtn">Add Task</button>
         </form>
@@ -31,7 +27,6 @@
                 <tr>
                     <th>Task ID</th>
                     <th>Task Name</th>
-                    <th>Status</th>
                     <th>Completed</th>
                 </tr>
                 </thead>
@@ -39,12 +34,11 @@
                 <tr th:each="task, iterStat : ${tasks}">
                     <td th:text="${iterStat.count}"></td>
                     <td th:text="${task.name}"></td>
-                    <td th:text="${task.status}"></td>
                     <td>
                         <input type="checkbox"
-                               th:id="${task.id}"
+                               th:id="${task.taskID}"
                                onclick="updateTask(this)"
-                               th:checked="${task.completed}">
+                               th:checked="${task.complete}">
                     </td>
 
                     <form th:action="@{/redirect}" method="post">
@@ -53,7 +47,7 @@
 
                     <td>
                     <form th:action="@{/removeTask}" method="post">
-                        <input type="hidden" name="removeBtn" th:value="${task.id}" />
+                        <input type="hidden" name="removeBtn" th:value="${task.taskID}" />
                         <button type="submit">Remove</button>
                     </form>
                     </td>
@@ -64,7 +58,6 @@
             </table>
 
         </div>
-        <p id="text" style="display:none">Checkbox is CHECKED!</p>
 
 
     </main>
@@ -72,15 +65,20 @@
 <script>
     function updateTask(checkbox) {
 
-        const taskId = checkbox.id
-        const completed = checkbox.checked
-        console.log(taskId)
+        console.log('checkbox checked');
+
+
+        const taskID = checkbox.id
+        const complete = checkbox.checked
+        console.log(taskID)
+        console.log(complete);
+
         $.ajax({
             type: 'POST',
             url: '/updateTask',
             data: {
-                taskId: taskId,
-                completed: completed
+                taskID: taskID,
+                complete: complete
             },
             success: function(response) {
                 console.log('Task updated successfully');

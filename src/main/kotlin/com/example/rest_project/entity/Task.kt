@@ -4,6 +4,8 @@ import java.util.*
 
 
 data class Task (
-    val taskID: UUID? = null,
-    var name: String
+    val taskID: Int? = null,
+    var name: String,
+    var complete: Boolean
+
 )

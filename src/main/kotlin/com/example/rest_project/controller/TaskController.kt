@@ -26,37 +26,34 @@ class TaskController(
 
 
     @PostMapping("/addTask")
-    fun addTask(name: String): String {
-        val taskInstance = Task(name=name)
-
+    fun addTask(@RequestParam name: String): String {
+        println("Task added")
+        val taskInstance = Task( name = name , complete = false)
         taskMapper.insert(taskInstance)
 
-        println("Added")
         return "redirect:/"
     }
 
 
-
-    // Docker desktop
-    // mybattins
-
     @PostMapping("/updateTask")
     @ResponseBody
-    fun updateTask(@RequestParam taskId: UUID, @RequestParam completed: Boolean): String {
-//        val taskToUpdate = tasks.find { it.id == taskId }
-//        taskToUpdate?.completed = completed
+    fun updateTask(@RequestParam taskID: Int, @RequestParam complete: Boolean): String {
         println("Task updated successfully")
+        taskMapper.update(taskID = taskID, complete = complete)
+
         return "redirect:/"
     }
 
     @PostMapping("/removeTask")
-    fun removeTask(@RequestParam("removeBtn") removeBtn: UUID): String{
-        //tasks.removeIf{ task -> task.id == removeBtn }
+    fun removeTask(@RequestParam("removeBtn") removeBtn: Int): String{
+        taskMapper.delete(removeBtn)
         println("Task Removed")
         return "redirect:/"
         }
 
 }
+
+
 @Controller
 class RedirectController {
 

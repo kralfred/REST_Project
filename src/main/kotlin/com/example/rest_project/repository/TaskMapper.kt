@@ -10,15 +10,15 @@ import java.util.*
 interface TaskMapper {
     @Insert(
         """
-        INSERT INTO tasks ( name ) 
-        VALUES ( #{name} )
+       INSERT INTO tasks ( name, complete ) 
+    VALUES ( #{name}, #{complete})
         """
     )
-    @Options(useGeneratedKeys = true, keyProperty = "id")
-    fun insert(entity: Task): UUID
+    @Options(useGeneratedKeys = true, keyProperty = "taskID")
+    fun insert(entity: Task): Int
 
-    @Select("SELECT * FROM tasks WHERE id = #{taskID}")
-    fun getById(taskID: UUID): Task?
+    @Select("SELECT * FROM tasks WHERE taskID = #{taskID}")
+    fun getById(taskID: Int): Task?
 
     @Select(
         """
@@ -32,13 +32,13 @@ interface TaskMapper {
     @Update(
         """
         UPDATE tasks SET
-            name = #{name}
-        WHERE id = #{id}
+            complete = #{complete}
+        WHERE taskID = #{taskID}
     """
     )
-    fun update(entity: Task): Int
+    fun update(taskID: Int, complete: Boolean): Int
 
 
-    @Delete("DELETE FROM tasks WHERE id = #{itemId}")
-    fun delete(itemId: UUID): Int
+    @Delete("DELETE FROM tasks WHERE taskID = #{taskID}")
+    fun delete(taskID: Int): Int
 }
