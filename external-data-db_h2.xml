@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<data>
+  <object-set>
+    <root path="">
+      <view name="Tasks" query=""/>
+    </root>
+    <dv.virtualview path="Task">
+      <table name="virtual_foreign_key_name" from="" to=""/>
+    </dv.virtualview>
+    <dv.virtualview path="id">
+      <column name="virtual_column_name" expr=""/>
+      <table name="virtual_foreign_key_name" from="" to=""/>
+    </dv.virtualview>
+  </object-set>
+</data>
