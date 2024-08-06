@@ -1,6 +1,7 @@
 package com.example.rest_project.controller
 
 import com.example.rest_project.entity.Task
+import com.example.rest_project.repository.TaskMapper
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -11,21 +12,25 @@ import java.util.*
 
 
 @Controller
-class TaskController{
+class TaskController(
+    private val taskMapper: TaskMapper
+){
 
-    private val tasks = mutableListOf<Task>()
 
 
     @GetMapping("/")
     fun showTasks(model: Model): String {
-        model.addAttribute("tasks", tasks)
+        model.addAttribute("tasks", taskMapper.getAll())
         return "index"
     }
 
 
     @PostMapping("/addTask")
-    fun addTask(name: String,status: String): String {
-        tasks.add(Task(name=name, status=status))
+    fun addTask(name: String): String {
+        val taskInstance = Task(name=name)
+
+        taskMapper.insert(taskInstance)
+
         println("Added")
         return "redirect:/"
     }
@@ -38,15 +43,15 @@ class TaskController{
     @PostMapping("/updateTask")
     @ResponseBody
     fun updateTask(@RequestParam taskId: UUID, @RequestParam completed: Boolean): String {
-        val taskToUpdate = tasks.find { it.id == taskId }
-        taskToUpdate?.completed = completed
+//        val taskToUpdate = tasks.find { it.id == taskId }
+//        taskToUpdate?.completed = completed
         println("Task updated successfully")
         return "redirect:/"
     }
 
     @PostMapping("/removeTask")
     fun removeTask(@RequestParam("removeBtn") removeBtn: UUID): String{
-        tasks.removeIf{ task -> task.id == removeBtn }
+        //tasks.removeIf{ task -> task.id == removeBtn }
         println("Task Removed")
         return "redirect:/"
         }
