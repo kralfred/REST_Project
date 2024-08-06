@@ -17,8 +17,8 @@ interface TaskMapper {
     @Options(useGeneratedKeys = true, keyProperty = "id")
     fun insert(entity: Task): UUID
 
-    @Select("SELECT * FROM tasks WHERE id = #{itemId}")
-    fun getById(itemId: Int): Task?
+    @Select("SELECT * FROM tasks WHERE id = #{taskID}")
+    fun getById(taskID: UUID): Task?
 
     @Select(
         """
@@ -40,5 +40,5 @@ interface TaskMapper {
 
 
     @Delete("DELETE FROM tasks WHERE id = #{itemId}")
-    fun delete(itemId: Int): Int
+    fun delete(itemId: UUID): Int
 }

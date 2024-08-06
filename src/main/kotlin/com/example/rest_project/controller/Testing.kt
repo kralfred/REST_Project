@@ -11,8 +11,7 @@ class Testing {
 
     @GetMapping("/secondary")
     fun displayCheckboxForm(model: Model): String {
-        // Add any necessary attributes to the model here
-        return "secondary" // Name of the Thymeleaf template for the secondary page
+        return "secondary"
     }
 
     @GetMapping("/checked")
