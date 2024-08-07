@@ -14,7 +14,6 @@ interface TaskMapper {
     VALUES ( #{name}, #{complete} )
         """
     )
-    @Options(useGeneratedKeys = true, keyProperty = "taskID")
     fun insert(entity: Task): Int
 
     @Select("SELECT * FROM tasks WHERE name = #{name}")

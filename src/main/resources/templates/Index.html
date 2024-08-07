@@ -58,6 +58,8 @@
 
         </div>
 
+
+        <h2>Search Tasks</h2>
         <form th:action="@{/getTaskByName}" method="post">
             <div>
                 <label for="name">Task Name:</label>
@@ -67,7 +69,8 @@
             <button type="submit" id="searchBtn" name="action" value="addBtn">Search</button>
         </form>
 
-        <div class="container">
+        <div class="container" th:if="${chosenTasks}">
+
             <table class="table">
                 <thead>
                 <tr>

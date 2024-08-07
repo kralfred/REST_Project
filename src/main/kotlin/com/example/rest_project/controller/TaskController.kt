@@ -16,11 +16,24 @@ class TaskController(
     private val taskMapper: TaskMapper
 ){
 
-
+    private var chosenTasks: MutableList<Task> = mutableListOf()
 
     @GetMapping("/")
     fun showTasks(model: Model): String {
         model.addAttribute("tasks", taskMapper.getAll())
+        model.addAttribute("chosenTasks", chosenTasks)
+
+        return "index"
+    }
+
+    @PostMapping("/getTaskByName")
+    fun getTaskByName(@RequestParam name: String, model: Model): String {
+        chosenTasks = taskMapper.getByName(name).toMutableList()
+
+        model.addAttribute("chosenTasks", chosenTasks)
+        model.addAttribute("tasks", taskMapper.getAll())
+        println(name)
+
         return "index"
     }
 
@@ -34,14 +47,7 @@ class TaskController(
         return "redirect:/"
     }
 
-    @PostMapping("/getTaskByName")
-    fun getTaskByName(@RequestParam name: String, model: Model): String {
 
-        model.addAttribute("chosenTasks", taskMapper.getByName(name))
-        println(name)
-
-        return "index"
-    }
 
 
     @PostMapping("/updateTask")
