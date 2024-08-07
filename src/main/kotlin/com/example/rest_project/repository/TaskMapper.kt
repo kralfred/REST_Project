@@ -16,7 +16,7 @@ interface TaskMapper {
     )
     fun insert(entity: Task): Int
 
-    @Select("SELECT * FROM tasks WHERE name = #{name}")
+    @Select("SELECT * FROM tasks WHERE name LIKE CONCAT('%', #{name}, '%')")
     fun getByName(name: String): List<Task>
 
     @Select(

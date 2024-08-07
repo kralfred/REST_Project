@@ -28,19 +28,23 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
 
+
     implementation("org.mybatis:mybatis:3.5.16")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
+    implementation("org.liquibase:liquibase-core")
 
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testImplementation("io.projectreactor:reactor-test")
+    runtimeOnly("org.postgresql:postgresql")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 
 
 }
+
 
 
 kotlin {

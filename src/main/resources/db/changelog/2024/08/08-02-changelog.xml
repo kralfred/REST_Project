@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1723069809152-1" author="alfre">
+        <createTable tableName="persons">
+            <column name="personid" type="INT"/>
+            <column name="lastname" type="VARCHAR(255)"/>
+            <column name="firstname" type="VARCHAR(255)"/>
+            <column name="address" type="VARCHAR(255)"/>
+            <column name="city" type="VARCHAR(255)"/>
+            <column name="age" type="INT"/>
+            <column name="id" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="persons_pk"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1723069809152-2" author="alfre">
+        <createTable tableName="task">
+            <column name="taskid" type="INT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="task_pk"/>
+            </column>
+            <column name="name" type="VARCHAR"/>
+            <column name="complete" type="BOOLEAN"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1723069809152-3" author="alfre">
+        <dropTable cascadeConstraints="true" tableName="EXAMPLE"/>
+    </changeSet>
+    <changeSet id="1723069809152-4" author="alfre">
+        <dropTable cascadeConstraints="true" tableName="TASKS"/>
+    </changeSet>
+
+</databaseChangeLog>
