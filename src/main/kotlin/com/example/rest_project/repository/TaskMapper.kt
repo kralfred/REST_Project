@@ -11,14 +11,14 @@ interface TaskMapper {
     @Insert(
         """
        INSERT INTO tasks ( name, complete ) 
-    VALUES ( #{name}, #{complete})
+    VALUES ( #{name}, #{complete} )
         """
     )
     @Options(useGeneratedKeys = true, keyProperty = "taskID")
     fun insert(entity: Task): Int
 
-    @Select("SELECT * FROM tasks WHERE taskID = #{taskID}")
-    fun getById(taskID: Int): Task?
+    @Select("SELECT * FROM tasks WHERE name = #{name}")
+    fun getByName(name: String): List<Task>
 
     @Select(
         """

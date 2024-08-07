@@ -34,6 +34,15 @@ class TaskController(
         return "redirect:/"
     }
 
+    @PostMapping("/getTaskByName")
+    fun getTaskByName(@RequestParam name: String, model: Model): String {
+
+        model.addAttribute("chosenTasks", taskMapper.getByName(name))
+        println(name)
+
+        return "index"
+    }
+
 
     @PostMapping("/updateTask")
     @ResponseBody

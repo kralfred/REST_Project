@@ -54,14 +54,58 @@
 
                 </tr>
                 </tbody>
-                <button type="submit" name="taskBtn" value="mark">Mark as done</button>
             </table>
 
         </div>
 
+        <form th:action="@{/getTaskByName}" method="post">
+            <div>
+                <label for="name">Task Name:</label>
+                <input type="text" id="searchInput" name="name" required>
+            </div>
 
+            <button type="submit" id="searchBtn" name="action" value="addBtn">Search</button>
+        </form>
+
+        <div class="container">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Task ID</th>
+                    <th>Task Name</th>
+                    <th>Completed</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="task, iterStat : ${chosenTasks}">
+                    <td th:text="${iterStat.count}"></td>
+                    <td th:text="${task.name}"></td>
+                    <td>
+                        <input type="checkbox"
+                               th:id="${task.taskID}"
+                               onclick="updateTask(this)"
+                               th:checked="${task.complete}">
+                    </td>
+
+                    <form th:action="@{/redirect}" method="post">
+                        <td><button type="submit" >Info</button></td>
+                    </form>
+
+                    <td>
+                        <form th:action="@{/removeTask}" method="post">
+                            <input type="hidden" name="removeBtn" th:value="${task.taskID}" />
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
+
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
     </main>
 </div>
+
 <script>
     function updateTask(checkbox) {
 
