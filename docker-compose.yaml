@@ -7,21 +7,19 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8050:8050
-    depends_on:
-      - db
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/postgres-database
+      SPRING_APPLICATION_NAME: REST_Project
+      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5433/postgres-database
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+      MYBATIS_TYPE_ALIASES_PACKAGE: com/example/rest_project/entity
+      SPRING_THYMELEAF_PREFIX: classpath:/templates/
+      SPRING_THYMELEAF_SUFFIX: .html
+      SPRING_LIQUIBASE_CHANGE_LOG: classpath:db/changelog/db.changelog-master.xml
 
-  db:
-    image: postgres:16
-    environment:
-      POSTGRES_DB: postgres-database
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
-    ports:
-      - 5433:5432
+
 
 
 

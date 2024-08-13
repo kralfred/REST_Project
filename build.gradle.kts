@@ -1,3 +1,6 @@
+import org.springframework.boot.gradle.tasks.bundling.BootJar
+
+
 plugins {
     id("org.springframework.boot") version "3.3.1"
     id("io.spring.dependency-management") version "1.1.5"
@@ -28,7 +31,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
 
-
     implementation("org.mybatis:mybatis:3.5.16")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
     implementation("org.liquibase:liquibase-core")
@@ -42,13 +44,22 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     developmentOnly("org.springframework.boot:spring-boot-devtools")
-
-
 }
 
-tasks.withType<Jar> {
+tasks.processResources {
+    from("src/main/resources") {
+        include("db/changelog/**")
+    }
+}
+
+tasks.named<BootJar>("bootJar") {
     enabled = true
 }
+
+tasks.withType<Copy> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 
 kotlin {
     compilerOptions {
@@ -59,3 +70,6 @@ kotlin {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+
+
