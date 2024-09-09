@@ -1,14 +1,10 @@
 # Use an official OpenJDK runtime as a parent image
 FROM openjdk:17-jdk-alpine
 
+WORKDIR /app
 
-# Copy the JAR file to the container
-COPY out/artifacts/REST_Project_jar/REST_Project.jar /REST_Project.jar
+COPY . /app
 
-
-
-# Run the JAR file
-ENTRYPOINT ["java", "-jar", "REST_Project.jar"]
-
+ENTRYPOINT ["java", "-jar", "out/artifacts/REST_Project_jar/REST_Project.jar"]
 
 EXPOSE 8050

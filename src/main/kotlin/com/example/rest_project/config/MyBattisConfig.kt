@@ -1,5 +1,5 @@
 package com.example.rest_project.config
-
+import com.example.rest_project.config.UUIDTypeHandler
 import org.apache.ibatis.session.SqlSessionFactory
 import org.mybatis.spring.SqlSessionFactoryBean
 import org.mybatis.spring.SqlSessionTemplate
@@ -15,6 +15,9 @@ class MyBatisConfig {
     fun sqlSessionFactory(dataSource: DataSource): SqlSessionFactory {
         val sessionFactoryBean = SqlSessionFactoryBean()
         sessionFactoryBean.setDataSource(dataSource)
+
+        sessionFactoryBean.setTypeHandlers(UUIDTypeHandler())
+
         return sessionFactoryBean.`object`!!
     }
 

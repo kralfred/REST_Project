@@ -34,7 +34,7 @@ dependencies {
     implementation("org.mybatis:mybatis:3.5.16")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3")
     implementation("org.liquibase:liquibase-core")
-    implementation("org.postgresql:postgresql:42.6.0")
+    implementation("org.postgresql:postgresql:42.7.2")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
@@ -51,6 +51,16 @@ tasks.processResources {
         include("db/changelog/**")
     }
 }
+
+sourceSets {
+    main {
+        resources {
+            srcDir("src/main/resources")
+        }
+    }
+}
+
+
 
 tasks.named<BootJar>("bootJar") {
     enabled = true

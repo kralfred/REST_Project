@@ -9,7 +9,7 @@ services:
       - 8050:8050
     environment:
       SPRING_APPLICATION_NAME: REST_Project
-      SPRING_DATASOURCE_URL: jdbc:postgresql://host.docker.internal:5433/postgres-database
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/task_db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
@@ -17,9 +17,16 @@ services:
       MYBATIS_TYPE_ALIASES_PACKAGE: com/example/rest_project/entity
       SPRING_THYMELEAF_PREFIX: classpath:/templates/
       SPRING_THYMELEAF_SUFFIX: .html
-      SPRING_LIQUIBASE_CHANGE_LOG: classpath:db/changelog/db.changelog-master.xml
+      SPRING_LIQUIBASE_CHANGE_LOG: classpath:changelog/db.changelog-master.xml
 
+  postgres:
+    image: 'postgres:latest'
+    container_name: 'task_db'
+    environment:
+      - POSTGRES_DB=task_db
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=user
 
-
-
+    ports:
+      - '5432:5432'
 

@@ -3,26 +3,25 @@ package com.example.rest_project.repository
 import com.example.rest_project.entity.Task
 import org.apache.ibatis.annotations.*
 import org.springframework.stereotype.Repository
-import java.util.*
+import java.util.UUID
+
+
 
 @Mapper
 @Repository
 interface TaskMapper {
-    @Insert(
-        """
-       INSERT INTO tasks ( name, complete ) 
-    VALUES ( #{name}, #{complete} )
-        """
-    )
-    fun insert(entity: Task): Int
+    @Insert("INSERT INTO task (name, complete, date, task_id) VALUES (#{name}, #{complete}, #{date}, #{task_id, jdbcType=OTHER})")
+    fun insert(task: Task)
 
-    @Select("SELECT * FROM tasks WHERE name LIKE CONCAT('%', #{name}, '%')")
+
+
+    @Select("SELECT * FROM task WHERE name LIKE CONCAT('%', #{name}, '%')")
     fun getByName(name: String): List<Task>
 
     @Select(
         """
         <script>
-        SELECT * FROM TASKS
+        SELECT * FROM TASK
         </script>
         """
     )
@@ -30,14 +29,14 @@ interface TaskMapper {
 
     @Update(
         """
-        UPDATE tasks SET
+        UPDATE task SET
             complete = #{complete}
-        WHERE taskID = #{taskID}
+        WHERE task_id = #{task_id, jdbcType=OTHER}
     """
     )
-    fun update(taskID: Int, complete: Boolean): Int
+    fun update(task_id: UUID, complete: Boolean): Int
 
 
-    @Delete("DELETE FROM tasks WHERE taskID = #{taskID}")
-    fun delete(taskID: Int): Int
+    @Delete("DELETE FROM task WHERE task_id = #{task_id, jdbcType=OTHER}")
+    fun delete(task_id: UUID): Int
 }
