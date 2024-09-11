@@ -36,7 +36,7 @@
                     <td th:text="${task.name}"></td>
                     <td>
                         <input type="checkbox"
-                               th:id="${task.task_id}"
+                               th:id="${task.taskID}"
                                onclick="updateTask(this)"
                                th:checked="${task.complete}">
                     </td>
@@ -47,7 +47,7 @@
 
                     <td>
                     <form th:action="@{/removeTask}" method="post">
-                        <input type="hidden" name="removeBtn" th:value="${task.task_id}" />
+                        <input type="hidden" name="removeBtn" th:value="${task.taskID}" />
                         <button type="submit">Remove</button>
                     </form>
                     </td>
@@ -85,7 +85,7 @@
                     <td th:text="${task.name}"></td>
                     <td>
                         <input type="checkbox"
-                               th:id="${task.task_id}"
+                               th:id="${task.taskID}"
                                onclick="updateTask(this)"
                                th:checked="${task.complete}">
                     </td>
@@ -96,7 +96,7 @@
 
                     <td>
                         <form th:action="@{/removeTask}" method="post">
-                            <input type="hidden" name="removeBtn" th:value="${task.task_id}" />
+                            <input type="hidden" name="removeBtn" th:value="${task.taskID}" />
                             <button type="submit">Remove</button>
                         </form>
                     </td>
@@ -115,16 +115,16 @@
         console.log('checkbox checked');
 
 
-        const task_id = checkbox.id
+        const taskID = checkbox.id
         const complete = checkbox.checked
-        console.log(task_id)
+        console.log(taskID)
         console.log(complete);
 
         $.ajax({
             type: 'POST',
             url: '/updateTask',
             data: {
-                task_id: task_id,
+                taskID: taskID,
                 complete: complete
             },
             success: function(response) {

@@ -9,8 +9,11 @@ import java.util.UUID
 data class User(
 
     var name: String,
-    var password: String,
-    var role: String,
-    var email: String,
-    val user_id: UUID,
+    val password: String,
+    val role: Role,
+    val email: String,
+    val userID: UUID,
 )
+enum class Role {
+    USER, ADMIN, MANAGER
+}
