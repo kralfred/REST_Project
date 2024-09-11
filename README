@@ -1,0 +1,89 @@
+
+
+The main purpose of this project is this:
+
+
+
+
+Project: Task Management System
+Features:
+User Management:
+
+User registration, login, and profile management.
+Roles and permissions (Admin, Manager, User).
+Task Management:
+
+Create, update, delete, and retrieve tasks.
+Tasks assigned to users, categorized by status (To Do, In Progress, Done).
+Due dates, task priorities, and task descriptions.
+Project Management:
+
+Tasks grouped by projects.
+Admin and Manager roles can create and assign projects.
+Users can view tasks assigned to them.
+Audit Logs:
+
+Log user actions (task creation, updates, etc.).
+Track task status updates with timestamps.
+User Notifications:
+
+Users receive notifications when they are assigned a task or a task is updated.
+Search and Filter:
+
+Search tasks by name, status, or priority.
+Filter tasks by project or due date.
+Technologies:
+Backend: Spring Boot with Kotlin, MyBatis for data persistence, PostgreSQL for the database.
+Security: Spring Security for user authentication and role-based access control (RBAC).
+Testing: JUnit, Mockito, and Testcontainers for database testing.
+Tools: Liqubase for database migrations, Docker for containerization, and H2 for in-memory tests.
+Key Modules:
+1. User and Authentication
+Entities: User, Role, Permission.
+Features:
+JWT-based authentication.
+Role-based authorization for Admin, Manager, and Users.
+User registration with password hashing.
+Users can update their profile (e.g., email, name, etc.).
+2. Task Management
+Entities: Task, Project, UserTask.
+Features:
+CRUD operations on tasks and projects.
+Assign tasks to users with various permissions based on roles (Admin can assign tasks to anyone, Managers can assign within their projects).
+Tasks have a status (e.g., pending IN_PROGRESS, DONE), priority, and due date.
+3. Audit Logging
+Entities: AuditLog.
+Features:
+Log all changes (task creation, updates, deletions, user assignments) into an audit table.
+Retrieve logs by filtering actions (e.g., task updates by a specific user).
+4. Notifications
+Entities: Notification.
+Features:
+When a task is assigned or updated, notify the user.
+Simple notifications table that tracks "unread" notifications.
+Mark notifications as read.
+Testing
+You can write different kinds of tests to cover the system:
+
+1. Unit Testing
+Services: Test business logic in service classes.
+Mappers: Test MyBatis mappers using mocked or real databases.
+2. Integration Testing
+Use Testcontainers to spin up PostgreSQL in Docker and test actual SQL queries through MyBatis mappers.
+End-to-end tests for user login, task creation, and other interactions.
+3. Controller Testing
+Use MockMvc to test REST endpoints, validating status codes, response data, and error cases.
+4. Security Testing
+Test role-based access control (ensuring users cannot perform actions beyond their permissions).
+Validate JWT authentication and route protection.
+Sample User Stories:
+As an admin, I can create projects and assign them to managers.
+As a manager, I can assign tasks to my team members.
+As a user, I can view my tasks and update their statuses.
+As an admin, I can view audit logs to track all task-related activities.
+As a user, I receive notifications when a task is assigned or updated.
+Stretch Features:
+Task Comments: Add a commenting feature where users can comment on tasks.
+Real-time Notifications: Implement WebSocket for real-time notifications when tasks are updated.
+Task History: Maintain a history of task status changes.
+This project will challenge you with real-world scenarios like user authentication, database interactions, and testing all the important layers of your application. It’s a great opportunity to solidify your backend skills while also practicing writing tests for every part of your system.
