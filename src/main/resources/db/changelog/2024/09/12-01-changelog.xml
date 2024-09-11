@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1726092058311-1" author="alfre">
+        <createTable tableName="project">
+            <column name="name" type="VARCHAR"/>
+            <column name="size" type="INT"/>
+            <column name="projectID" type="char(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="division_pk"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1726092058311-2" author="alfre">
+        <createTable tableName="task">
+            <column name="name" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="complete" type="BOOLEAN"/>
+            <column name="date" type="date"/>
+            <column name="taskid" type="char(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="taskid"/>
+            </column>
+            <column name="division_id" type="char(36)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1726092058311-3" author="alfre">
+        <createTable tableName="user">
+            <column name="firstname" type="VARCHAR">
+                <constraints nullable="false"/>
+            </column>
+            <column name="lastname" type="VARCHAR"/>
+            <column name="role" type="VARCHAR"/>
+            <column name="userid" type="char(36)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1726092058311-4" author="alfre">
+        <addForeignKeyConstraint baseColumnNames="division_id" baseTableName="task" constraintName="division_id"
+                                 onDelete="NO ACTION" referencedColumnNames="projectID" referencedTableName="project"/>
+    </changeSet>
+
+</databaseChangeLog>

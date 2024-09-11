@@ -10,7 +10,7 @@ import java.util.UUID
 @Mapper
 @Repository
 interface TaskMapper {
-    @Insert("INSERT INTO task (name, complete, date, task_id) VALUES (#{name}, #{complete}, #{date}, #{task_id, jdbcType=OTHER})")
+    @Insert("INSERT INTO task (name, complete, date, taskID) VALUES (#{name}, #{complete}, #{date}, #{taskID, jdbcType=OTHER})")
     fun insert(task: Task)
 
 
@@ -31,12 +31,12 @@ interface TaskMapper {
         """
         UPDATE task SET
             complete = #{complete}
-        WHERE task_id = #{task_id, jdbcType=OTHER}
+        WHERE taskID = #{taskID, jdbcType=OTHER}
     """
     )
-    fun update(task_id: UUID, complete: Boolean)
+    fun update(taskID: UUID, complete: Boolean)
 
 
-    @Delete("DELETE FROM task WHERE task_id = #{task_id, jdbcType=OTHER}")
-    fun delete(task_id: UUID)
+    @Delete("DELETE FROM task WHERE taskID = #{taskID, jdbcType=OTHER}")
+    fun delete(taskID: UUID)
 }

@@ -13,6 +13,6 @@ class TaskService (
     fun getAll(): List<Task> = taskMapper.getAll()
     fun insert(task: Task) = taskMapper.insert(task)
     fun getByName(name:String): List<Task> =  taskMapper.getByName(name)
-    fun update(task_id: UUID, complete: Boolean) = taskMapper.update(task_id, complete)
-    fun delete(task_id: UUID) = taskMapper.delete(task_id)
+    fun update(taskID: UUID, complete: Boolean) = taskMapper.update(taskID, complete)
+    fun delete(taskID: UUID) = taskMapper.delete(taskID)
 }

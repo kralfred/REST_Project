@@ -9,6 +9,6 @@ data class Task (
     var name: String,
     var complete: Boolean,
     var date: LocalDate,
-    val task_id: UUID
+    val taskID: UUID
 
     )

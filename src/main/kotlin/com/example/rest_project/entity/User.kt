@@ -12,5 +12,5 @@ data class User(
     var password: String,
     var role: String,
     var email: String,
-    val user_id: UUID,
+    val userID: UUID,
 )

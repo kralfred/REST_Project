@@ -1,7 +1,6 @@
 package com.example.rest_project.controller
 
 import com.example.rest_project.entity.Task
-import com.example.rest_project.repository.TaskMapper
 import com.example.rest_project.service.TaskService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -45,7 +44,7 @@ class TaskController(
     fun addTask(@RequestParam name: String): String {
         println("Task added")
 
-        val taskInstance = Task( name = name , complete = false, LocalDate.now(), task_id = UUID.randomUUID())
+        val taskInstance = Task( name = name , complete = false, LocalDate.now(), taskID = UUID.randomUUID())
         taskMapper.insert(taskInstance)
 
         return "redirect:/"
@@ -58,7 +57,7 @@ class TaskController(
     @ResponseBody
     fun updateTask(@RequestParam taskID: UUID, @RequestParam complete: Boolean): String {
         println("Task updated successfully")
-        taskMapper.update(task_id = taskID, complete = complete)
+        taskMapper.update(taskID = taskID, complete = complete)
 
         return "redirect:/"
     }
