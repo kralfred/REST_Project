@@ -3,12 +3,14 @@ package com.example.rest_project.entity
 import jakarta.persistence.GeneratedValue
 import jakarta.persistence.GenerationType
 import jakarta.persistence.Id
+import java.util.UUID
 
 
 data class User(
 
-    val id: Long,
-    val userName: String,
-    @Id @GeneratedValue(strategy = GenerationType.AUTO)
-    val userId: Long = 0
+    var name: String,
+    var password: String,
+    var role: String,
+    var email: String,
+    val user_id: UUID,
 )

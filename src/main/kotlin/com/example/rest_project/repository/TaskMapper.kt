@@ -34,9 +34,9 @@ interface TaskMapper {
         WHERE task_id = #{task_id, jdbcType=OTHER}
     """
     )
-    fun update(task_id: UUID, complete: Boolean): Int
+    fun update(task_id: UUID, complete: Boolean)
 
 
     @Delete("DELETE FROM task WHERE task_id = #{task_id, jdbcType=OTHER}")
-    fun delete(task_id: UUID): Int
+    fun delete(task_id: UUID)
 }

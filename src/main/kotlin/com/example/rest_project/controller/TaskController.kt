@@ -2,7 +2,7 @@ package com.example.rest_project.controller
 
 import com.example.rest_project.entity.Task
 import com.example.rest_project.repository.TaskMapper
-import org.springframework.data.auditing.CurrentDateTimeProvider
+import com.example.rest_project.service.TaskService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.GetMapping
@@ -16,7 +16,7 @@ import java.util.*
 
 @Controller
 class TaskController(
-    private val taskMapper: TaskMapper
+    private val taskMapper: TaskService
 ){
 
     private var chosenTasks: MutableList<Task> = mutableListOf()
@@ -44,10 +44,8 @@ class TaskController(
     @PostMapping("/addTask")
     fun addTask(@RequestParam name: String): String {
         println("Task added")
-        val localDate = LocalDate.now()
-        val e = UUID.randomUUID()
-        println(e)
-        val taskInstance = Task( name = name , complete = false, localDate, task_id = UUID.randomUUID())
+
+        val taskInstance = Task( name = name , complete = false, LocalDate.now(), task_id = UUID.randomUUID())
         taskMapper.insert(taskInstance)
 
         return "redirect:/"

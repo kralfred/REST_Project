@@ -1,4 +1,4 @@
-// src/main/kotlin/com/example/demo/controller/MyController.kt
+
 package com.example.rest_project.controller
 
 import org.springframework.stereotype.Controller

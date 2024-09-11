@@ -96,7 +96,7 @@
 
                     <td>
                         <form th:action="@{/removeTask}" method="post">
-                            <input type="hidden" name="removeBtn" th:value="${task.taskID}" />
+                            <input type="hidden" name="removeBtn" th:value="${task.task_id}" />
                             <button type="submit">Remove</button>
                         </form>
                     </td>
@@ -115,16 +115,16 @@
         console.log('checkbox checked');
 
 
-        const taskID = checkbox.id
+        const task_id = checkbox.id
         const complete = checkbox.checked
-        console.log(taskID)
+        console.log(task_id)
         console.log(complete);
 
         $.ajax({
             type: 'POST',
             url: '/updateTask',
             data: {
-                taskID: taskID,
+                task_id: task_id,
                 complete: complete
             },
             success: function(response) {
