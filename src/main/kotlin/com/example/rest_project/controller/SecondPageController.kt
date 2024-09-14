@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping
 
 
 @Controller
-class Testing {
+class SecondPageController {
 
     @GetMapping("/secondary")
     fun displayCheckboxForm(model: Model): String {

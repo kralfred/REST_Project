@@ -1,7 +1,6 @@
 package com.example.rest_project.security
 
 import com.example.rest_project.repository.UserMapper
-import com.example.rest_project.security.JwtProperties
 import com.example.rest_project.service.CustomUserDetailService
 import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.context.annotation.Bean
