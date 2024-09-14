@@ -14,7 +14,7 @@ class CustomUserDetailService(
     private val userMapper: UserMapper
 ) : UserDetailsService {
     override fun loadUserByUsername(username: String): UserDetails =
-        userMapper.getByEmail(username).mapToUserDetails()?: throw UsernameNotFoundException("User not found")
+        userMapper.getByEmail(username)?.mapToUserDetails()?: throw UsernameNotFoundException("User not found")
 
     private fun AplicationUser.mapToUserDetails(): UserDetails =
         User.builder().username(this.email).password(this.password).roles(this.role.name).build()
