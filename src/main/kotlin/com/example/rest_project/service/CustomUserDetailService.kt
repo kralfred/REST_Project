@@ -19,4 +19,6 @@ class CustomUserDetailService(
     private fun AplicationUser.mapToUserDetails(): UserDetails =
         User.builder().username(this.email).password(this.password).roles(this.role.name).build()
 
+
 }
+

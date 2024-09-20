@@ -1,5 +1,6 @@
 package com.example.rest_project.service
 
+import com.example.rest_project.entity.RefreshToken
 import com.example.rest_project.security.JwtProperties
 import io.jsonwebtoken.Claims
 import io.jsonwebtoken.Jwts
@@ -7,7 +8,7 @@ import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.stereotype.Service
-import java.util.Date
+import java.util.*
 
 
 @Service
@@ -28,6 +29,9 @@ class TokenService(
             .setExpiration(expirationDate)
             .signWith(secretKey)
             .compact()
+
+
+
 
     fun extractEmail(token: String): String? =
         getAllClaims(token)

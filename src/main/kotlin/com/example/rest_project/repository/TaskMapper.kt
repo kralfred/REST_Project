@@ -10,6 +10,7 @@ import java.util.UUID
 @Mapper
 @Repository
 interface TaskMapper {
+
     @Insert("INSERT INTO task (name, complete, date, taskid) VALUES (#{name}, #{complete}, #{date}, #{taskID, jdbcType=OTHER})")
     fun insert(task: Task)
 
