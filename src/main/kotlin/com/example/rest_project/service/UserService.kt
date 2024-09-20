@@ -15,12 +15,7 @@ class UserService (
     private val userMapper: UserMapper
 
 ){
-    fun createUser(user: User): String{
-      user.password = encoder.encode(user.password)
-      user.userID = UUID.randomUUID()
-      userMapper.createUser(user)
-      return "created ${user.name}"
-    }
+
 
     fun getAll(): List<User> = userMapper.getAll()
     fun getByName(name:String): List<User> =  userMapper.getByName(name)

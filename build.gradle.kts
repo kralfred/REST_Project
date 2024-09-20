@@ -56,11 +56,6 @@ dependencies {
     developmentOnly("org.springframework.boot:spring-boot-devtools")
 }
 
-tasks.processResources {
-    from("src/main/resources") {
-        include("db/changelog/**")
-    }
-}
 
 sourceSets {
     main {

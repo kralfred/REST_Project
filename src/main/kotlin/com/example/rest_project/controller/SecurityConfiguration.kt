@@ -22,15 +22,23 @@ class SecurityConfiguration (
         http: HttpSecurity, authenticationProvider: AuthenticationProvider,
         jwtAuthenticationFilter: JwtAuthenticationFilter,
     ): SecurityFilterChain = http.csrf{ it.disable() }.authorizeHttpRequests{
-        it.requestMatchers("api/auth", "api/auth/refresh", "/error")
+        it.requestMatchers("api/auth","/login","/register", "api/auth/refresh", "/error")
             .permitAll()
-            .requestMatchers(HttpMethod.POST, "api/users")
+            .requestMatchers(HttpMethod.POST, "api/users", "/newuser", "/loginCheck")
             .permitAll()
+            .requestMatchers("/main")
+            .authenticated()
             .requestMatchers("/api/user**")
             .hasRole("ADMIN")
             .anyRequest()
             .fullyAuthenticated()
-              }.sessionManagement {
+              }.formLogin {
+                  it.
+                  loginPage("/login").
+                          permitAll()
+
+    }
+        .sessionManagement {
                   it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) }
         .authenticationProvider(authenticationProvider)
         .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter::class.java)

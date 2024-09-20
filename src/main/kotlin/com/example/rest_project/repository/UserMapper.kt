@@ -12,19 +12,15 @@ import java.util.*
 interface UserMapper {
 
 
-   @Insert ("INSERT INTO user ( name, email, role, userID, password) VALUES (#{name}, #{email}, #{role}, #{userID, jdbcType=OTHER}, #{password})")
-   fun createUser(user: User)
 
-   @Insert ("INSERT INTO user ( first_name, last_name, role, userID) VALUES (#{first_name}, #{lastname}, #{role}, #{userID, jdbcType=OTHER})")
-   fun insert(user: User)
 
-   @Select("SELECT * FROM user WHERE name LIKE CONCAT('%', #{name}, '%')")
+   @Select("SELECT * FROM \"user\" WHERE name LIKE CONCAT('%', #{name}, '%')")
    fun getByName(name: String): List<User>
 
    @Select(
       """
         <script>
-        SELECT * FROM user
+        SELECT * FROM "user" 
         </script>
         """
    )
@@ -32,19 +28,19 @@ interface UserMapper {
 
 
 
-   @Select("SELECT * FROM user WHERE email LIKE CONCAT('%', #{email}, '%')")
+   @Select("SELECT * FROM \"user\" WHERE email LIKE CONCAT('%', #{email}, '%')")
    fun getAllByEmail(email: String): List<User>
 
 
 
 
-   @Select("SELECT * FROM user WHERE email LIKE CONCAT('%', #{email}, '%')")
+   @Select("SELECT * FROM \"user\" WHERE email LIKE CONCAT('%', #{email}, '%')")
    fun getByEmail(email: String): User?
 
 
 
 
-   @Delete("DELETE FROM user WHERE userID = #{userID, jdbcType=OTHER}")
+   @Delete("DELETE FROM \"user\" WHERE userID = #{userID, jdbcType=OTHER}")
    fun delete(userID: UUID)
 
 
