@@ -12,6 +12,12 @@ class RefreshTokenService(
     private val refreshTokenMapper: RefreshTokenMapper
 ) {
 
+    fun createAndStoreRefreshToken(refreshToken: RefreshToken): String {
+
+        refreshTokenMapper.insert(refreshToken)
+        return "Refreshed token created"
+    }
+
     fun save(refreshToken: RefreshToken): Int {
         return refreshTokenMapper.insert(refreshToken)
     }

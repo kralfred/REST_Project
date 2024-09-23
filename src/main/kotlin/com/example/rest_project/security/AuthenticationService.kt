@@ -25,43 +25,39 @@ class AuthenticationService(
     private val userService: UserService
 ) {
 
-     fun authentication(authRequest: AuthenticationRequest): AuthenticationResponse {
+    fun authentication(authRequest: AuthenticationRequest): AuthenticationResponse {
 
-         try{
-
-
-        authManager.authenticate(UsernamePasswordAuthenticationToken(authRequest.email, authRequest.password))
+        try {
 
 
-
-        val token = tokenService.generate(
-            userDetails = customUserDetailService.loadUserByUsername(authRequest.email),
-            expirationDate = Date(System.currentTimeMillis() + jwtProperties.accessTokenExpiration)
-        )
-
-         val expirationDate = LocalDateTime.ofInstant(
-             Date(System.currentTimeMillis() + jwtProperties.refreshTokenExpiration).toInstant(),
-             ZoneId.systemDefault()
-         )
-
-         val refreshToken = UUID.randomUUID().toString()
-         val refreshTokenEntity = RefreshToken(
-             token = refreshToken,
-             userId = userService.getByEmail(authRequest.email).userID,
-             expirationDate = expirationDate
-         )
-
-        return AuthenticationResponse(token, refreshTokenEntity)
-     }
-         catch (e: Exception) {
+            authManager.authenticate(UsernamePasswordAuthenticationToken(authRequest.email, authRequest.password))
 
 
-             throw BadCredentialsException("Invalid email or password")
-         }
+            val accessToken = tokenService.generate(
+                userDetails = customUserDetailService.loadUserByUsername(authRequest.email),
+                expirationDate = Date(System.currentTimeMillis() + jwtProperties.accessTokenExpiration)
+            )
+
+            val expirationDate = LocalDateTime.ofInstant(
+                Date(System.currentTimeMillis() + jwtProperties.refreshTokenExpiration).toInstant(),
+                ZoneId.systemDefault()
+            )
+
+
+            val refreshToken = RefreshToken(
+                token = UUID.randomUUID().toString(),
+                userId = userService.getByEmail(authRequest.email).userID,
+                expirationDate = expirationDate,
+                refreshTokenID = UUID.randomUUID()
+            )
+
+            return AuthenticationResponse(accessToken, refreshToken)
+        } catch (e: Exception) {
+
+
+            throw BadCredentialsException("Invalid email or password")
+        }
     }
-
-
-
 
 
 }

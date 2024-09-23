@@ -14,8 +14,8 @@ import java.util.*
 interface RefreshTokenMapper {
 
     @Insert("""
-        INSERT INTO refresh_tokens (id, token, user_id, expiry_date) 
-        VALUES (#{id, jdbcType=OTHER}, #{token}, #{userId, jdbcType=OTHER}, #{expirationDate})
+        INSERT INTO refresh_token (refresh_token_id, token, user_id, expires_at) 
+        VALUES (#{refreshTokenID, jdbcType=OTHER}, #{token}, #{userId, jdbcType=OTHER}, #{expirationDate})
     """)
     fun insert(refreshToken: RefreshToken): Int
 
