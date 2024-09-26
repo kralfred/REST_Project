@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.27.xsd"
+        objectQuotingStrategy="QUOTE_ONLY_RESERVED_WORDS">
+    <changeSet id="1727195378853-2" author="alfre">
+        <createTable tableName="refresh_token">
+            <column name="refresh_token_id" type="char(36)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="refresh_tokens_pkey"/>
+            </column>
+            <column name="token" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_id" type="char(36)"/>
+            <column defaultValue="CURRENT_TIMESTAMP" name="created_at" type="timestamp"/>
+            <column name="expires_at" type="timestamp"/>
+        </createTable>
+    </changeSet>
+
+</databaseChangeLog>
